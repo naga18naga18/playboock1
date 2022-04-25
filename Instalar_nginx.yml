@@ -1,0 +1,25 @@
+---
+- name: Instalar nginx
+  hosts: all
+  become: true
+ 
+  tasks:
+  - name: Habilitar el repositorio epel-release 
+    yum:
+      name: epel-release
+      state: present
+ 
+  - name: Instalar nginx
+    yum:
+      name: nginx
+      state: present
+ 
+  - name: Insertar el Indice
+    template:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+ 
+  - name: Encender NGiNX
+    service:
+      name: nginx
+      state: started
